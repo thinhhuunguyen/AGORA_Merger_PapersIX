@@ -7,6 +7,7 @@ Links to papers:
 
 ## Details of each file
 
+*setup.py*: This module provides the shared setup and helper routines for analyzing the AGORA multi-code simulation suite, including the code list, yt-field name for each code, plotting parameters for each code, halo merger-tree and snapshot loading, and merger infall-timing calculations. It also defines derived yt fields—such as AGORA-normalized metallicity, cooling time, and free-fall time, so that datasets from the different simulation codes can be loaded and compared on a common footing.
 
 - Part 1:
 	- *Gas_phase_plot_at_different_merger_stages.py*: Figure 5 + Figure 6 
