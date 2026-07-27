@@ -158,74 +158,6 @@ def sec_branch_compute(codetp, merger_number, halotree_ver = 2013):
                 prog_branch = '0'
                 sec_branch = '577_0'
                 sec_branch_2 = None  
-    elif halotree_ver == 1751:
-        if merger_number == '0':
-            if codetp == 'ENZO':
-                prog_branch = '0'
-                sec_branch = '0_97'
-                sec_branch_2 = None
-            elif codetp == 'AREPO':
-                prog_branch = '0'
-                sec_branch = '0_109'
-                sec_branch_2 = None
-            elif codetp == 'GADGET3':
-                prog_branch = '0'
-                sec_branch = '0_127'
-                sec_branch_2 = None
-            elif codetp == 'CHANGA':
-                prog_branch = '0'
-                sec_branch = '0_61'
-                sec_branch_2 = None
-            elif codetp == 'GIZMO':
-                prog_branch = '0'
-                sec_branch = '0_74'
-                sec_branch_2 = None
-            elif codetp == 'GEAR':
-                prog_branch = '0'
-                sec_branch = '0_121'
-                sec_branch_2 = None
-            elif codetp == 'ART':
-                prog_branch = '0'
-                sec_branch = '0_133'
-                sec_branch_2 = None
-            elif codetp == 'RAMSES':
-                prog_branch = '0'
-                sec_branch = '0_62'
-                sec_branch_2 = None  
-        #for halotree version 1751
-        elif merger_number == '1':
-            if codetp == 'ENZO':
-                prog_branch = '2'
-                sec_branch = '2_24'
-                sec_branch_2 = None
-            elif codetp == 'AREPO':
-                prog_branch = '0_19'
-                sec_branch = '0_19_35'
-                sec_branch_2 = None
-            elif codetp == 'GADGET3':
-                prog_branch = '0_22'
-                sec_branch = '0_22_62'
-                sec_branch_2 = None
-            elif codetp == 'CHANGA':
-                prog_branch = '1'
-                sec_branch = '1_52_0'
-                sec_branch_2 = '1_52'
-            elif codetp == 'GIZMO':
-                prog_branch = '1'
-                sec_branch = '1_28'
-                sec_branch_2 = '1_28_0'
-            elif codetp == 'GEAR':
-                prog_branch = '0_19'
-                sec_branch = '0_19_39'
-                sec_branch_2 = '0_19_39_0'
-            elif codetp == 'ART':
-                prog_branch = '0_24'
-                sec_branch = '0_24_49'
-                sec_branch_2 = '0_24_49_0'
-            elif codetp == 'RAMSES':
-                prog_branch = '1'
-                sec_branch = '1_24'
-                sec_branch_2 = None
     return prog_branch, sec_branch, sec_branch_2
 
 
@@ -306,10 +238,6 @@ def load_timings(codetp, halotree_ver, merger_number):
 
 def load_tracking_dist_data(codetp, halotree_ver, merger_number):
     dist_data = np.load('/work/hdd/bezm/tnguyen2/AGORA/analysis/dist_relvel_j_ProgBranch-%s_FirstMerger_%s_ver%s.npy' % (merger_number, codetp, halotree_ver), allow_pickle=True).tolist()
-    if halotree_ver == 1751:
-        time_list = np.loadtxt('/work/hdd/bezm/gtg115x/Halo_Finding/%s/pfs_allsnaps_%s.txt' % (codetp, halotree_ver), dtype=str)[:,2].astype(float)
-        dist_data_idx = np.intersect1d(np.round(dist_data['time'], decimals=1), np.round(time_list, decimals=1), return_indices=True)[2]
-        dist_data['idx'] = dist_data_idx
     return dist_data
 
 def load_ds(codetp, idx, pfs):
@@ -894,7 +822,6 @@ def add_cooling_fields(ds, codetp, idx, redshift_list, gal_com):
         #result = data['gas', "tCool"]/np.ravel(data['gas', "tFF"])
         #result[result == 0] = 1e-99
         return data['gas', "tCool"]/np.ravel(data['gas', "tFF"])
-        #return result
     #
     ds.add_field(
         name = ('gas', "coolOFF"),
