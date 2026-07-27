@@ -4,3 +4,9 @@ Analysis codes for the two AGORA Papers IX (Part 1 and Part 2). The studies anal
 Links to papers:
 - Part 1 (Effects on star formation): https://arxiv.org/abs/2607.21709
 - Part 2 (Effects on stellar morphology): https://arxiv.org/abs/2607.21710
+
+## Details of each file
+
+
+- Part 1:
+	- *Gas_phase_plot_at_different_merger_stages.py*: Figure 5 + Figure 6 
