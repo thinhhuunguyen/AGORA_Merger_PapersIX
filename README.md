@@ -11,6 +11,8 @@ Links to papers:
 
 "***Finding_the_infall_timestep_of_the_merger_non-spherical_halos.ipynb***": this notebook identifies the starting timestep of the merger, aka. when the two convex hulls overlap for the first time 
 
+"***extract_star_metadata_allbox_AGORA.py***": extract the metadata (pos, vel, mass, initial mass, ID, age, metallicity) of all star particles in a simulation snapshot.
+
 - Part 1:
     - *Make_merger_tree_plot.py*: Figure 1 
         - *Make_merger_tree_plot_DATA.py*: Generate data to plot Figure 1
