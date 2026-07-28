@@ -7,9 +7,9 @@ Links to papers:
 
 ## Details of each file
 
-*setup.py*: This module provides the shared setup and helper routines for analyzing the AGORA multi-code simulation suite, including the code list, yt-field name for each code, plotting parameters for each code, halo merger-tree and snapshot loading, and merger infall-timing calculations. It also defines derived yt fields—such as AGORA-normalized metallicity, cooling time, and free-fall time, so that datasets from the different simulation codes can be loaded and compared on a common footing.
+**setup.py**: This module provides the shared setup and helper routines for analyzing the AGORA multi-code simulation suite, including the code list, yt-field name for each code, plotting parameters for each code, halo merger-tree and snapshot loading, and merger infall-timing calculations. It also defines derived yt fields—such as AGORA-normalized metallicity, cooling time, and free-fall time, so that datasets from the different simulation codes can be loaded and compared on a common footing.
 
-*Finding_the_infall_timestep_of_the_merger_non-spherical_halos.ipynb*: this notebook identifies the starting timestep of the merger, aka. when the two convex hulls overlap for the first time 
+**Finding_the_infall_timestep_of_the_merger_non-spherical_halos.ipynb**: this notebook identifies the starting timestep of the merger, aka. when the two convex hulls overlap for the first time 
 
 - Part 1:
     - *Make_merger_tree_plot.py*: Figure 1 
