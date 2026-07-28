@@ -14,6 +14,7 @@ Links to papers:
 - Part 1:
     - *Make_merger_tree_plot.py*: Figure 1 
         - *Make_merger_tree_plot_DATA.py*: Generate data to plot Figure 1
+    - *All_Properties_vs_Time_Plot.py*: Figure 4
 	- *Gas_phase_plot_at_different_merger_stages.py*: Figure 5 + Figure 6 
     - *Trace_Gas_Particles_that_Turns_Into_Starburst_Stars_plotting-fromSecondaryHalo_CombinedAllCodes.py*: Figure 7
     - *Trace_Gas_Particles_that_Turns_Into_Starburst_Stars_plotting_for-CHANGA-laterBurst.py*: Figure 16
