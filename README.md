@@ -17,6 +17,8 @@ Links to papers:
 
 "***Generate_stellar-core_tracking_data.py***": generate the tracking data of the stellar cores of the two progenitor galaxies. The output of this code is the "dist_data" variable loaded in the following codes. 
 
+"***determine_coalescence_timestep.py***": determines the coalescence timestep for each code
+
 - Part 1:
     - *Make_merger_tree_plot.py*: Figure 1 
         - *Make_merger_tree_plot_DATA.py*: Generate data to plot Figure 1
