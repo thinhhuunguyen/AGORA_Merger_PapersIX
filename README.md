@@ -15,6 +15,8 @@ Links to papers:
 
 "***Finding_the_infall_timestep_of_the_merger_non-spherical_halos.ipynb***": this notebook identifies the starting timestep of the merger, aka. when the two convex hulls overlap for the first time 
 
+"***Generate_stellar-core_tracking_data.py***": generate the tracking data of the stellar cores of the two progenitor galaxies. The output of this code is the "dist_data" variable loaded in the following codes. 
+
 - Part 1:
     - *Make_merger_tree_plot.py*: Figure 1 
         - *Make_merger_tree_plot_DATA.py*: Generate data to plot Figure 1
