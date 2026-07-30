@@ -25,6 +25,8 @@ Links to papers:
     - *trajectory_comparison.py*: Figure 2
     - *divide_merger_stages.py*: Figure 3 (left subplot)
     - *merger_timing_plot.py*: Figure 3 (right subplot)
+        - *Gas_Mass_Fraction_calc_ConvexHull_preInfall_PrimaryGalaxy.py*: Generate data to plot Figure 3 (right subplot)
+        - *Gas_Mass_Fraction_calc_ConvexHull_preinfall_SecondaryGalaxy.py*: Generate data to plot Figure 3 (right subplot)
     - *All_Properties_vs_Time_Plot.py*: Figure 4
 	- *Gas_phase_plot_at_different_merger_stages.py*: Figure 5 + Figure 6 
     - *Trace_Gas_Particles_that_Turns_Into_Starburst_Stars_plotting-fromSecondaryHalo_CombinedAllCodes.py*: Figure 7
