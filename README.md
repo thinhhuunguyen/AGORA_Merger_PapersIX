@@ -33,5 +33,8 @@ Links to papers:
     - *Trace_Gas_Particles_that_Turns_Into_Starburst_Stars_creatingPlotData_GADGET3_GEAR_GIZMO.py*: Generate data to plot Figure 7
     - *Trace_Gas_Particles_that_Turns_Into_Starburst_Stars_creatingPlotData_GADGET4.py*: Generate data to plot Figure 7
     - *Trace_Gas_Particles_that_Turns_Into_Starburst_Stars_creatingPlotData_CHANGA.py*: Generate data to plot Figure 7
+    - *bound_gas_index_seccondary_galaxy_preinfall.py*: Generate data to plot Figure 7
+- *infalling_gasmass_and_momentum_maxdist_stage.py*: Figure 8
+    - *Select_gas_with_negative_radialvel_infalling_gasparticletracing.py*: Generate data to plot Figure 8
 - *evolution_of_angular-momentum_and_variables_defining_coalescence.py*: Figure 12
 - *Trace_Gas_Particles_that_Turns_Into_Starburst_Stars_plotting_for-CHANGA-laterBurst.py*: Figure 16
