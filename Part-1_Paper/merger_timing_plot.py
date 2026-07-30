@@ -37,25 +37,34 @@ for j in np.flip(range(len(codetp_list))):
         mass_star2 = np.array(output_star2['stellar_mass'])
         idx_star2 = np.array(output_star2['idx'])
         # Gas information
-        output_gas1 = np.load('/work/hdd/bezm/tnguyen2/AGORA/analysis/GasCoolingTime_ProgBranch-0_%s_ver2013_ConvexHull_preInfall_ver2.npy' % codetp, allow_pickle=True).tolist()
-        mass_gas1 = output_gas1['gas_mass_hull']
-        idx_gas1 = output_gas1['idx']
-        output_gas2 = np.load('/work/hdd/bezm/tnguyen2/AGORA/analysis/GasMassFraction_SecBranch-%s_%s_ver%s_ConvexHull_preInfall_ver2.npy' % (merger_number, codetp, halotree_ver), allow_pickle=True).tolist()
+        output_gas1 = np.load('/work/hdd/bezm/tnguyen2/AGORA/analysis/GasMassFraction_ProgBranch-%s_%s_ver%s_ConvexHull_preInfall_ver3.npy' % (merger_number, codetp, halotree_ver), allow_pickle=True).tolist()
+        mass_gas1 = output_gas1['gas_mass_total']
+        mass_gas_sf1 = output_gas1['gas_mass_sf']
+        mass_gas_cool1 = output_gas1['gas_mass_cool']
+        time_gas1 = output_gas1['time']
+        output_gas2 = np.load('/work/hdd/bezm/tnguyen2/AGORA/analysis/GasMassFraction_SecBranch-%s_%s_ver%s_ConvexHull_preInfall_ver3.npy' % (merger_number, codetp, halotree_ver), allow_pickle=True).tolist()
         mass_gas2 = np.array(output_gas2['gas_mass_total'])
+        mass_gas_sf2 = output_gas2['gas_mass_sf']
+        mass_gas_cool2 = output_gas2['gas_mass_cool']
         time_gas2 = np.array(output_gas2['time'])
         #Add mass ratio
         idx_preinfall = idx_begin - step
         dm_ratio = rawtree[sec_branch][idx_preinfall]['Halo_Mass']/rawtree[prog_branch][idx_preinfall]['Halo_Mass']
         star_ratio = mass_star2[idx_star2 == idx_preinfall][0]/mass_star1[idx_star1 == idx_preinfall][0]
-        gasandstar_ratio = (mass_star2[idx_star2 == idx_preinfall][0]  +  mass_gas2[np.argmin(abs(time_gas2 - time_list[idx_preinfall]))]  )/(mass_star1[idx_star1 == idx_preinfall][0] + mass_gas1[np.argmin(abs(np.array(idx_gas1) - idx_preinfall))].sum() )
-        total_ratio = (rawtree[sec_branch][idx_preinfall]['Halo_Mass'] + mass_star2[idx_star2 == idx_preinfall][0]  +  mass_gas2[np.argmin(abs(time_gas2 - time_list[idx_preinfall]))])/ ( rawtree[prog_branch][idx_preinfall]['Halo_Mass'] + mass_star1[idx_star1 == idx_preinfall][0] + mass_gas1[np.argmin(abs(np.array(idx_gas1) - idx_preinfall))].sum() )
+        gasandstar_ratio = (mass_star2[idx_star2 == idx_preinfall][0]  +  mass_gas2[np.argmin(abs(time_gas2 - time_list[idx_preinfall]))]  )/(mass_star1[idx_star1 == idx_preinfall][0] + mass_gas1[np.argmin(abs(time_gas1 - time_list[idx_preinfall]))] )
+        gassfandstar_ratio = (mass_star2[idx_star2 == idx_preinfall][0]  +  mass_gas_sf2[np.argmin(abs(time_gas2 - time_list[idx_preinfall]))]  )/(mass_star1[idx_star1 == idx_preinfall][0] + mass_gas_sf1[np.argmin(abs(time_gas1 - time_list[idx_preinfall]))] )
+        gascoolandstar_ratio = (mass_star2[idx_star2 == idx_preinfall][0]  +  mass_gas_cool2[np.argmin(abs(time_gas2 - time_list[idx_preinfall]))]  )/(mass_star1[idx_star1 == idx_preinfall][0] + mass_gas_cool1[np.argmin(abs(time_gas1 - time_list[idx_preinfall]))] )
+        total_ratio = (rawtree[sec_branch][idx_preinfall]['Halo_Mass'] + mass_star2[idx_star2 == idx_preinfall][0]  +  mass_gas2[np.argmin(abs(time_gas2 - time_list[idx_preinfall]))])/ ( rawtree[prog_branch][idx_preinfall]['Halo_Mass'] + mass_star1[idx_star1 == idx_preinfall][0] + mass_gas1[np.argmin(abs(time_gas1 - time_list[idx_preinfall]))] )
         output = {}
         output['dm_ratio'] = dm_ratio
         output['star_ratio'] = star_ratio
         output['gasandstar_ratio'] = gasandstar_ratio
+        output['gassfandstar_ratio'] = gassfandstar_ratio
+        output['gascoolandstar_ratio'] = gascoolandstar_ratio
         output['total_ratio'] = total_ratio
         np.save('/work/hdd/bezm/tnguyen2/AGORA/analysis/merger_mass_ratio_%s_ver2013.npy' % codetp, output)
-        print(codetp, dm_ratio, star_ratio, gasandstar_ratio, total_ratio)
+        print(codetp, dm_ratio, star_ratio, gasandstar_ratio, gassfandstar_ratio, gascoolandstar_ratio, total_ratio)
+        del rawtree
     else:
         redshift_list, time_list, pfs, step = load_halotree_and_pfs(codetp, halotree_ver, rawtree_skip = True)
         prog_branch, sec_branch, sec_branch_2 = sec_branch_compute(codetp, merger_number)
@@ -74,7 +83,6 @@ for j in np.flip(range(len(codetp_list))):
     # Adding time of first pericentric
     ax.barh(label_list[j], 0.005, left=(time_begin+time_maxdist)/2-0.0025, color=color_list[j])
     ax.barh(label_list[j], 0.005, left=time_maxdist-0.0025, color=color_list[j])
-    #ax.barh(label_list[j], 0.005, left=time_1stpass-0.0025, color=color_list[j])
 
     #
     ax_cut.text(2.47, label_list[j], '%.2f' % dm_ratio,color='grey', fontsize=font_size-2, va='center')
