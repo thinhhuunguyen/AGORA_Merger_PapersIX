@@ -19,7 +19,7 @@ Links to papers:
 
 "***determine_coalescence_timestep.py***": determines the coalescence timestep for each code
 
-### Part 1:
+### Part-1_Paper:
 - *Make_merger_tree_plot.py*: Figure 1 
     - *Make_merger_tree_plot_DATA.py*: Generate data to plot Figure 1
 - *trajectory_comparison.py*: Figure 2
