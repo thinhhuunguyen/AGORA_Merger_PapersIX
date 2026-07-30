@@ -62,11 +62,6 @@ def find_star_orbital_energy_square(dmpos,dmmass,velcom,starpos, starvel, starid
     #print(KE)
     return E<0
 
-def check_boundness(branch, idx, velcom, starpos, starvel, starid, dm_pos, dm_mass, Numlength = 1000):
-    #This function loads the cut DM particle data of a halo (branch) at a timestep (idx) and check if the provided star/gas particles are bound to this halo
-    return find_star_orbital_energy_square(dm_pos,dm_mass,velcom,starpos, starvel, starid)
-
-
 def in_hull(p, hull):
     """
     Test if points in `p` are in `hull`
@@ -164,6 +159,6 @@ dm_inhull_bool = in_hull(dm_pos, hullv_pos)
 dm_pos_hull = dm_pos[dm_inhull_bool]
 dm_mass_hull = dm_mass[dm_inhull_bool]
 
-bound_bool = check_boundness(branch, idx, vel_sec, gas_pos_hull.v, gas_vel_hull.v, gas_index_hull, dm_pos_hull, dm_mass_hull)
+bound_bool = find_star_orbital_energy_square(dm_pos_hull, dm_mass_hull, vel_sec, gas_pos_hull.v, gas_vel_hull.v, gas_index_hull)
 gas_index_bound = gas_index_hull[bound_bool]
 np.save('/work/hdd/bezm/tnguyen2/AGORA/analysis/bound_gas_index_sec_galaxy_ProgBranch-0_%s_ver2013.npy' % codetp, gas_index_bound)
