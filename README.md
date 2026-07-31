@@ -7,20 +7,20 @@ Links to papers:
 
 ## Details of each file
 
-"***setup.py***": This module provides the shared setup and helper routines for analyzing the AGORA multi-code simulation suite, including the code list, yt-field name for each code, plotting parameters for each code, halo merger-tree and snapshot loading, and merger infall-timing calculations. It also defines derived yt fields—such as AGORA-normalized metallicity, cooling time, and free-fall time, so that datasets from the different simulation codes can be loaded and compared on a common footing.
+[setup.py]{setup.py}: This module provides the shared setup and helper routines for analyzing the AGORA multi-code simulation suite, including the code list, yt-field name for each code, plotting parameters for each code, halo merger-tree and snapshot loading, and merger infall-timing calculations. It also defines derived yt fields—such as AGORA-normalized metallicity, cooling time, and free-fall time, so that datasets from the different simulation codes can be loaded and compared on a common footing.
 
-"***extract_star_metadata_allbox_AGORA.py***": extract the metadata (pos, vel, mass, initial mass, ID, age, metallicity) of all star particles in a simulation snapshot.
+[extract_star_metadata_allbox_AGORA.py]{extract_star_metadata_allbox_AGORA.py}: extract the metadata (pos, vel, mass, initial mass, ID, age, metallicity) of all star particles in a simulation snapshot.
 
-"***visualizing_stars_assignment_and_DM_halos.ipynb***": this notebook visualizes the DM halos with their assigned stars and hence helps identifies the secondary halos of the major merger 
+[visualizing_stars_assignment_and_DM_halos.ipynb]{visualizing_stars_assignment_and_DM_halos.ipynb}: this notebook visualizes the DM halos with their assigned stars and hence helps identifies the secondary halos of the major merger 
 
-"***Finding_the_infall_timestep_of_the_merger_non-spherical_halos.ipynb***": this notebook identifies the starting timestep of the merger, aka. when the two convex hulls overlap for the first time 
+[Finding_the_infall_timestep_of_the_merger_non-spherical_halos.ipynb]{Finding_the_infall_timestep_of_the_merger_non-spherical_halos.ipynb}: this notebook identifies the starting timestep of the merger, aka. when the two convex hulls overlap for the first time 
 
-"***Generate_stellar-core_tracking_data.py***": generate the tracking data of the stellar cores of the two progenitor galaxies. The output of this code is the "dist_data" variable loaded in the following codes. 
+[Generate_stellar-core_tracking_data.py]{Generate_stellar-core_tracking_data.py}: generate the tracking data of the stellar cores of the two progenitor galaxies. The output of this code is the "dist_data" variable loaded in the following codes. 
 
 [determine_coalescence_timestep.py](determine_coalescence_timestep.py): determines the coalescence timestep for each code
 
 ### Part-1_Paper:
-- *Make_merger_tree_plot.py*: Figure 1 
+- [Make_merger_tree_plot.py]{Part-1_Paper/Make_merger_tree_plot.py}: Figure 1 
     - *Make_merger_tree_plot_DATA.py*: Generate data to plot Figure 1
 - *trajectory_comparison.py*: Figure 2
 - *divide_merger_stages.py*: Figure 3 (left subplot)
