@@ -37,5 +37,7 @@ Links to papers:
 - *infalling_gasmass_and_momentum_maxdist_stage.py*: Figure 8
     - *Select_gas_with_negative_radialvel_infalling_gasparticletracing.py*: Generate data to plot Figure 8
 - *preMerger_StellarMass_SFR_sSFR.py*: Figure 9
+- *Calculate_BurstFraction_and_its_correlations.py*: Figures 10 + Figure 11
+    - *Gas_Properties_preInfall_allCodes.py*: Generate data to plot Figure 11
 - *evolution_of_angular-momentum_and_variables_defining_coalescence.py*: Figure 12
 - *Trace_Gas_Particles_that_Turns_Into_Starburst_Stars_plotting_for-CHANGA-laterBurst.py*: Figure 16
