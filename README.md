@@ -22,22 +22,22 @@ Links to papers:
 ### Part-1_Paper:
 - [Make_merger_tree_plot.py](Part-1_Paper/Make_merger_tree_plot.py): Figure 1 
     - *Make_merger_tree_plot_DATA.py*: Generate data to plot Figure 1
-- *trajectory_comparison.py*: Figure 2
-- *divide_merger_stages.py*: Figure 3 (left subplot)
-- *merger_timing_plot.py*: Figure 3 (right subplot)
+- [trajectory_comparison.py](Part-1_Paper/trajectory_comparison.py): Figure 2
+- [divide_merger_stages.py](Part-1_Paper/divide_merger_stages.py): Figure 3 (left subplot)
+- [merger_timing_plot.py](Part-1_Paper/merger_timing_plot.py): Figure 3 (right subplot)
     - *Gas_Mass_Fraction_calc_ConvexHull_preInfall_PrimaryGalaxy.py*: Generate data to plot Figure 3 (right subplot)
     - *Gas_Mass_Fraction_calc_ConvexHull_preinfall_SecondaryGalaxy.py*: Generate data to plot Figure 3 (right subplot)
-- *All_Properties_vs_Time_Plot.py*: Figure 4
-- *Gas_phase_plot_at_different_merger_stages.py*: Figure 5 + Figure 6 
-- *Trace_Gas_Particles_that_Turns_Into_Starburst_Stars_plotting-fromSecondaryHalo_CombinedAllCodes.py*: Figure 7
+- [All_Properties_vs_Time_Plot.py](Part-1_Paper/All_Properties_vs_Time_Plot.py): Figure 4
+- [Gas_phase_plot_at_different_merger_stages.py](Part-1_Paper/Gas_phase_plot_at_different_merger_stages.py): Figure 5 + Figure 6 
+- [Trace_Gas_Particles_that_Turns_Into_Starburst_Stars_plotting-fromSecondaryHalo_CombinedAllCodes.py](Part-1_Paper/Trace_Gas_Particles_that_Turns_Into_Starburst_Stars_plotting-fromSecondaryHalo_CombinedAllCodes.py): Figure 7
     - *bound_gas_index_seccondary_galaxy_preinfall.py*: Generate data to plot Figure 7
     - *Trace_Gas_Particles_that_Turns_Into_Starburst_Stars_creatingPlotData_GADGET3_GEAR_GIZMO.py*: Generate data to plot Figure 7
     - *Trace_Gas_Particles_that_Turns_Into_Starburst_Stars_creatingPlotData_GADGET4.py*: Generate data to plot Figure 7
     - *Trace_Gas_Particles_that_Turns_Into_Starburst_Stars_creatingPlotData_CHANGA.py*: Generate data to plot Figure 7
-- *infalling_gasmass_and_momentum_maxdist_stage.py*: Figure 8
+- [infalling_gasmass_and_momentum_maxdist_stage.py](Part-1_Paper/infalling_gasmass_and_momentum_maxdist_stage.py): Figure 8
     - *Select_gas_with_negative_radialvel_infalling_gasparticletracing.py*: Generate data to plot Figure 8
-- *preMerger_StellarMass_SFR_sSFR.py*: Figure 9
-- *Calculate_BurstFraction_and_its_correlations.py*: Figures 10 + Figure 11
+- [preMerger_StellarMass_SFR_sSFR.py](Part-1_Paper/preMerger_StellarMass_SFR_sSFR.py): Figure 9
+- [Calculate_BurstFraction_and_its_correlations.py](Part-1_Paper/Calculate_BurstFraction_and_its_correlations.py): Figures 10 + Figure 11
     - *Gas_Properties_preInfall_allCodes.py*: Generate data to plot Figure 11
-- *evolution_of_angular-momentum_and_variables_defining_coalescence.py*: Figure 12
-- *Trace_Gas_Particles_that_Turns_Into_Starburst_Stars_plotting_for-CHANGA-laterBurst.py*: Figure 16
+- [evolution_of_angular-momentum_and_variables_defining_coalescence.py](Part-1_Paper/evolution_of_angular-momentum_and_variables_defining_coalescence.py): Figure 12
+- [Trace_Gas_Particles_that_Turns_Into_Starburst_Stars_plotting_for-CHANGA-laterBurst.py](Part-1_Paper/Trace_Gas_Particles_that_Turns_Into_Starburst_Stars_plotting_for-CHANGA-laterBurst.py): Figure 16
