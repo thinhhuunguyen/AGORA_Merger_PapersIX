@@ -40,4 +40,7 @@ Links to papers:
 - [Calculate_BurstFraction_and_its_correlations.py](Part-1_Paper/Calculate_BurstFraction_and_its_correlations.py): Figures 10 + Figure 11
     - *Gas_Properties_preInfall_allCodes.py*: Generate data to plot Figure 11
 - [evolution_of_angular-momentum_and_variables_defining_coalescence.py](Part-1_Paper/evolution_of_angular-momentum_and_variables_defining_coalescence.py): Figure 12
+- [GasMetallicity_and_CoolingTime_PreMerger.py](Part-1_Paper/GasMetallicity_and_CoolingTime_PreMerger.py): Figure 13
+    - *Gas_Metallicity_calc_ConvexHull.py*: Generate data to plot Figure 13
+    - *Gas_CoolingTime_calc_ConvexHull.py*: Generate data to plot Figure 13
 - [Trace_Gas_Particles_that_Turns_Into_Starburst_Stars_plotting_for-CHANGA-laterBurst.py](Part-1_Paper/Trace_Gas_Particles_that_Turns_Into_Starburst_Stars_plotting_for-CHANGA-laterBurst.py): Figure 16
