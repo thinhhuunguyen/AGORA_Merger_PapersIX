@@ -19,6 +19,8 @@ Links to papers:
 
 [determine_coalescence_timestep.py](determine_coalescence_timestep.py): determines the coalescence timestep for each code
 
+[add_hullv_position-partial.py](add_hullv_position-partial.py): add the vertices' coordinate of the convex hulls (of only relevant halos to the analysis to save space)
+
 ### Part-1_Paper:
 - [Make_merger_tree_plot.py](Part-1_Paper/Make_merger_tree_plot.py): Figure 1 
     - *Make_merger_tree_plot_DATA.py*: Generate data to plot Figure 1
