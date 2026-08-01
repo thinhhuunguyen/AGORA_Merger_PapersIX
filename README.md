@@ -46,4 +46,5 @@ Links to papers:
     - *Gas_Metallicity_calc_ConvexHull.py*: Generate data to plot Figure 13
     - *Gas_CoolingTime_calc_ConvexHull.py*: Generate data to plot Figure 13
 - [GADGETs_preMajorMerger_burst_minorMergerHypothesis.py](Part-1_Paper/GADGETs_preMajorMerger_burst_minorMergerHypothesis.py): Figure 14
+- [CHANGA_delayed_starburst_SFR.py](Part-1_Paper/CHANGA_delayed_starburst_SFR.py): Figure 15
 - [Trace_Gas_Particles_that_Turns_Into_Starburst_Stars_plotting_for-CHANGA-laterBurst.py](Part-1_Paper/Trace_Gas_Particles_that_Turns_Into_Starburst_Stars_plotting_for-CHANGA-laterBurst.py): Figure 16
