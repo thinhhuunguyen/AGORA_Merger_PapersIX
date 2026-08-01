@@ -48,3 +48,6 @@ Links to papers:
 - [GADGETs_preMajorMerger_burst_minorMergerHypothesis.py](Part-1_Paper/GADGETs_preMajorMerger_burst_minorMergerHypothesis.py): Figure 14
 - [CHANGA_delayed_starburst_SFR.py](Part-1_Paper/CHANGA_delayed_starburst_SFR.py): Figure 15
 - [Trace_Gas_Particles_that_Turns_Into_Starburst_Stars_plotting_for-CHANGA-laterBurst.py](Part-1_Paper/Trace_Gas_Particles_that_Turns_Into_Starburst_Stars_plotting_for-CHANGA-laterBurst.py): Figure 16
+
+### Part-2_Paper:
+- [Gas_Projections_MergerSequence_AllCodes.py](Part-2_Paper/Gas_Projections_MergerSequence_AllCodes.py): Figure 1
