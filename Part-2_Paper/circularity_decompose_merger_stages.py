@@ -47,9 +47,6 @@ def circularity_compute_decompose(codetp):
     mass_deposit = mass_gal[np.intersect1d(ID_deposit, ID_gal, return_indices=True)[2]] 
     dist_deposit = dist_gal[np.intersect1d(ID_deposit, ID_gal, return_indices=True)[2]]      
     # 
-    #smass_sfr_data = np.load('/work/hdd/bezm/tnguyen2/AGORA/analysis/smass_sfr_evolution_ProgBranch-%s_FirstMerger_%s_ver1751.npy' % (merger_number, codetp), allow_pickle=True).tolist()
-    #time_plot, time_sec_plot, prog_smass_list, sec_smass_list, prog_sfr_list, sec_sfr_list, time_begin, time_maxdist, time_cls, time_eval = smass_sfr_data.values()
-    #
     # Old stars + Accretion
     ID_old = ID_gal[ftime_gal < time_begin]
     ID_old = np.setdiff1d(ID_old, ID_deposit)
