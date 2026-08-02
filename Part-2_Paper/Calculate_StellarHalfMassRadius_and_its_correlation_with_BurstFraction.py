@@ -97,6 +97,7 @@ def compute_halfmass_radius(codetp, idx, sec_branch_on=False):
     if idx in dist_data['idx']:
         center = np.array(dist_data['prog_com_plot'])[dist_data['idx'] == idx][0]
     elif idx == idx_begin - step:
+        #This is obtained using the "premerger_center_and_velocity.py" file
         center, center2, v_bulk, v_bulk2, _ = np.load('/work/hdd/bezm/tnguyen2/AGORA/analysis/premerger_centers_%s_ver2013_ver2.npy' % (codetp), allow_pickle=True).tolist().values()
     elif os.path.exists('/work/hdd/bezm/tnguyen2/AGORA/%s/radius_2000_%s/Galaxy_Halo_0_Snapshot_%s_comR2000.npy' % (codetp, codetp, idx)) == True:
         center = np.load('/work/hdd/bezm/tnguyen2/AGORA/%s/radius_2000_%s/Galaxy_Halo_0_Snapshot_%s_comR2000.npy' % (codetp, codetp, idx), allow_pickle=True).tolist()
