@@ -55,3 +55,4 @@ Links to papers:
 - [Gas_Projections_MergerSequence_AllCodes.py](Part-2_Paper/Gas_Projections_MergerSequence_AllCodes.py): Figure 1
 - [mass_radial_distribution_PlotCombined.py](Part-2_Paper/mass_radial_distribution_PlotCombined.py): Figure 2
     - *mass_radial_distribution_data.py*: Generate data to plot Figure 2
+- [Calculate_StellarHalfMassRadius_and_its_correlation_with_BurstFraction.py](Part-2_Paper/Calculate_StellarHalfMassRadius_and_its_correlation_with_BurstFraction.py): Figure 3
