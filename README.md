@@ -55,5 +55,8 @@ Links to papers:
 - [Gas_Projections_MergerSequence_AllCodes.py](Part-2_Paper/Gas_Projections_MergerSequence_AllCodes.py): Figure 1
 - [mass_radial_distribution_PlotCombined.py](Part-2_Paper/mass_radial_distribution_PlotCombined.py): Figure 2
     - *mass_radial_distribution_data.py*: Generate data to plot Figure 2
-    - *premerger_center_and_velocity.py*: Compute the center and velocity of the progenitors pre-infall, used for Figures 2 and 3
+    - *premerger_center_and_velocity.py*: Compute the center and velocity of the progenitors pre-infall, used for Figures 2, 3, and 4
 - [Calculate_StellarHalfMassRadius_and_its_correlation_with_BurstFraction.py](Part-2_Paper/Calculate_StellarHalfMassRadius_and_its_correlation_with_BurstFraction.py): Figure 3
+- [circularity_distribution_plot.py](Part-2_Paper/circularity_distribution_plot.py): Figure 4
+    - *stellar_orbital_circularity_calculation_Abadi2003method.py*: Calculate the stellar orbital circularity to plot Figure 4
+        - *extract_darkmatter_bary_MassPos_ConvexHull.py*: Calculate the dark matter and baryonic mass for the circularity calculation
