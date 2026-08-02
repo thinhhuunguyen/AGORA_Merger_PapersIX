@@ -53,4 +53,5 @@ Links to papers:
 - [Find_Galactic_Center.py](Part-2_Paper/Find_Galactic_Center.py): General Python Class to find a galactic center following Section 2.4 of Part-2 Paper
     - [Find_Galactic_Center_in_AGORA.py](Part-2_Paper/Find_Galactic_Center_in_AGORA.py): Applying the Find_Galactic_Center() class to the AGORA simulations (automatically find the centers through the snapshot list).
 - [Gas_Projections_MergerSequence_AllCodes.py](Part-2_Paper/Gas_Projections_MergerSequence_AllCodes.py): Figure 1
-- [mass_radial_distribution_Combined.py](Part-2_Paper/mass_radial_distribution_Combined.py): Figure 2
+- [mass_radial_distribution_PlotCombined.py](Part-2_Paper/mass_radial_distribution_PlotCombined.py): Figure 2
+    - *mass_radial_distribution_data.py*: Generate data to plot Figure 2
