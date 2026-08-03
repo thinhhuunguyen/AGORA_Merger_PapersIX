@@ -312,7 +312,7 @@ def make_plot(codes=CODES):
                loc='lower center', bbox_to_anchor=(0.5, -0.02))
 
     fig.tight_layout(rect=[0, 0.08, 1, 0.98])
-    #fig.savefig(SAVE_PATH, dpi=300, bbox_inches='tight')
+    fig.savefig(SAVE_PATH, dpi=300, bbox_inches='tight')
     #plt.close(fig)
     print('saved %s   (codes: %s)' % (SAVE_PATH, ', '.join(used)))
 
