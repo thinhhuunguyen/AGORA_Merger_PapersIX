@@ -61,5 +61,5 @@ Links to papers:
     - *stellar_orbital_circularity_calculation_Abadi2003method.py*: Calculate the stellar orbital circularity to plot Figure 4
         - *extract_darkmatter_bary_MassPos_ConvexHull.py*: Calculate the dark matter and baryonic mass for the circularity calculation
     - *circularity_decompose_merger_stages.py*: Decompose the calculated stellar circularity into stellar groups from different merger stages
-- [circularity_vs_radial-distance_plot.py](Part-2_Paper/circularity_vs_radial-distance_plot.py): Figure 5
-- [Disk_Decomposition_Mass_Fraction.py](Part-2_Paper/Disk_Decomposition_Mass_Fraction.py): Figure 6
+- [Disk_Decomposition_Mass_Fraction.py](Part-2_Paper/Disk_Decomposition_Mass_Fraction.py): Figure 5
+- [circularity_vs_radial-distance_plot.py](Part-2_Paper/circularity_vs_radial-distance_plot.py): Figure 6
