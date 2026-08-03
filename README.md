@@ -68,3 +68,4 @@ Links to papers:
 - [Compare_with_Covington2008_SAM_Plot.py](Part-2_Paper/Compare_with_Covington2008_SAM_Plot.py): Figure 8
     - *Predict_merger_remannt_properties_analytically_Covington2008_data.py*: Generate data for Figure 8
 - [GEAR_disk_decomposition_comparison_between_LiangEtal2025_and_KannanEtal2015.py](Part-2_Paper/GEAR_disk_decomposition_comparison_between_LiangEtal2025_and_KannanEtal2015.py): Figure 10
+    - Use updated disk decomposition method calculated by *Recalculate_GEAR_disk-to-total-fraction_using_KannanEtal2015_assumption.py*
