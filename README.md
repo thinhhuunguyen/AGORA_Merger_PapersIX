@@ -67,3 +67,4 @@ Links to papers:
 - [angular_momentum_direction_change.py](Part-2_Paper/angular_momentum_direction_change.py): Figure 7
 - [Compare_with_Covington2008_SAM_Plot.py](Part-2_Paper/Compare_with_Covington2008_SAM_Plot.py): Figure 8
     - *Predict_merger_remannt_properties_analytically_Covington2008_data.py*: Generate data for Figure 8
+- [GEAR_disk_decomposition_comparison_between_LiangEtal2025_and_KannanEtal2015.py](Part-2_Paper/GEAR_disk_decomposition_comparison_between_LiangEtal2025_and_KannanEtal2015.py): Figure 10
