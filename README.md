@@ -62,6 +62,7 @@ Links to papers:
         - *extract_darkmatter_bary_MassPos_ConvexHull.py*: Calculate the dark matter and baryonic mass for the circularity calculation
     - *circularity_decompose_merger_stages.py*: Decompose the calculated stellar circularity into stellar groups from different merger stages
 - [Disk_Decomposition_Mass_Fraction.py](Part-2_Paper/Disk_Decomposition_Mass_Fraction.py): Figure 5
+    - Note that the D/T value of GEAR in this code follows the Kannan et al 2015 method, calculated in *Recalculate_GEAR_disk-to-total-fraction_using_KannanEtal2015_assumption.py*
 - [circularity_vs_radial-distance_plot.py](Part-2_Paper/circularity_vs_radial-distance_plot.py): Figure 6
 - [angular_momentum_direction_change.py](Part-2_Paper/angular_momentum_direction_change.py): Figure 7
 - [Compare_with_Covington2008_SAM_Plot.py](Part-2_Paper/Compare_with_Covington2008_SAM_Plot.py): Figure 8
