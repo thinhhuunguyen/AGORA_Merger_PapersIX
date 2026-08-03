@@ -63,3 +63,4 @@ Links to papers:
     - *circularity_decompose_merger_stages.py*: Decompose the calculated stellar circularity into stellar groups from different merger stages
 - [Disk_Decomposition_Mass_Fraction.py](Part-2_Paper/Disk_Decomposition_Mass_Fraction.py): Figure 5
 - [circularity_vs_radial-distance_plot.py](Part-2_Paper/circularity_vs_radial-distance_plot.py): Figure 6
+- [angular_momentum_direction_change.py](Part-2_Paper/angular_momentum_direction_change.py): Figure 7
