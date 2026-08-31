@@ -1,8 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.lines import Line2D
 import yt
 yt.set_log_level(0)
-    
+
 import setup
 from importlib import reload
 reload(setup)
@@ -13,80 +14,77 @@ from setup import codetp_list, label_list
 halotree_ver = 2013
 merger_number = '0'
 
-fig = plt.figure(figsize=(23, 19))
+code_to_label = dict(zip(codetp_list, label_list))
+# Row order requested: ART-I, GADGET-3, GADGET-4, GIZMO, ENZO, AREPO-T, RAMSES, CHANGA, GEAR
+row_codetp_list = ['ART', 'GADGET3', 'GADGET4', 'GIZMO', 'ENZO', 'AREPO', 'RAMSES', 'CHANGA', 'GEAR']
 
-# Two 3x3 blocks side by side. Small internal wspace/hspace shrinks the gaps
-# within each block; the gap between left (right=0.48) and right (left=0.55)
-# blocks is preserved independently.
-gs_left  = fig.add_gridspec(3, 3, left=0.05, right=0.48, top=0.95, bottom=0.12,
-                            wspace=0.16, hspace=0.15)
-gs_right = fig.add_gridspec(3, 3, left=0.55, right=0.98, top=0.95, bottom=0.12,
-                            wspace=0.16, hspace=0.15)
+n_rows = len(row_codetp_list)
+n_cols = 7
+
+# Figure is wider than a plain single grid would need: the extra width is spent
+# on the two widened gaps (column 0 - column 1, and column 1 - column 2) plus a
+# right margin reserved for the "Group N" labels/separators, while every panel
+# keeps the exact same width/height as a uniform 7-column grid.
+fig = plt.figure(figsize=(27.74, 34))
+
+# Column 0, column 1, and columns 2-6 each get their own gridspec, with
+# left/right chosen so all three grids produce identical panel sizes (same
+# top/bottom/hspace too) -- only the gaps/margins around the grids differ. The
+# right margin was widened (figure widened to match) to fit the row-group labels
+# and separators; column 0's panel, column 1's panel, the column 0-1 gap, the
+# column 1-2 gap, and the columns 2-6 block are all unchanged in absolute size
+# from before.
+gs_col0 = fig.add_gridspec(n_rows, 1, left=0.065554, right=0.175805, top=0.93, bottom=0.04,
+                            hspace=0.18)
+gs_col1 = fig.add_gridspec(n_rows, 1, left=0.225780, right=0.335884, top=0.93, bottom=0.04,
+                            hspace=0.18)
+gs_rest2 = fig.add_gridspec(n_rows, n_cols - 2, left=0.359330, right=0.963966, top=0.93, bottom=0.04,
+                             wspace=0.12, hspace=0.18)
 
 xticks = [0, 2, 4, 6, 8, 10]
+hist_bin_log = np.linspace(0, 10, 45)
 
-# ====================================================================
-# LEFT BLOCK (Code 1): total radial mass distribution
-# ====================================================================
-font_size = 23
-for j in range(len(codetp_list)):
-    codetp = codetp_list[j]
+font_size = 26
+
+col_titles = [
+    'Before merger\n' + r'($t_{\rm pre-infall}$)',
+    'After merger\n' + r'($t_{\rm post/eq}$)',
+    'old + accretion',
+    'infall',
+    '1st passage',
+    'coalescence',
+    'deposit',
+]
+
+component_colors = {
+    'old': 'black',
+    'infall': 'royalblue',
+    'pass': 'orange',
+    'cls': 'red',
+    'deposit': 'limegreen',
+}
+
+# (first_row, last_row, label) -- row indices are inclusive, into row_codetp_list
+row_groups = [
+    (0, 3, 'Group 1'),  # ART-I, GADGET-3, GADGET-4, GIZMO
+    (4, 5, 'Group 2'),  # ENZO, AREPO-T
+    (6, 8, 'Group 3'),  # RAMSES, CHANGA, GEAR
+]
+
+axes_grid = np.empty((n_rows, n_cols), dtype=object)
+
+for i, codetp in enumerate(row_codetp_list):
+    label = code_to_label[codetp]
     if codetp == 'CHANGA':
         step = 2
     elif codetp == 'GEAR':
         step = 3
     else:
         step = 1
-    idx_begin, idx_endinfall, idx_1stpass, idx_maxdist, idx_cls, \
-    time_begin, time_endinfall, time_1stpass, time_maxdist, time_cls = load_timings(codetp, halotree_ver, merger_number)
     #
-    ax = fig.add_subplot(gs_left[j // 3, j % 3])
-    dist_gal, mass_gal = np.load('/work/hdd/bezm/tnguyen2/AGORA/analysis/radial_mass_distribution_ProgBranch-%s_Idx_%s_%s_ver2013.npy' % (merger_number, idx_begin - step, codetp), allow_pickle=True).tolist().values()
-    hist_bin_log = np.linspace(0, 10, 100)
-    ax.hist(dist_gal, weights=mass_gal, bins=hist_bin_log, color='black')
-    if j >= 6:
-        ax.set_xlabel('d (kpc)', fontsize=font_size)
-    if j == 0 or j == 3 or j == 6:
-        ax.set_ylabel(r'$M_{\bigstar} (M_\odot)$', fontsize=font_size)
-    ax.tick_params('both', labelsize=font_size)
-    ax.yaxis.get_offset_text().set_fontsize(font_size-2)
-    if j >= 6:
-        ax.set_xticks(xticks)
-    else:
-        ax.set_xticks(xticks,['','','','','',''])
-    ax.set_yscale('log')
-    ax.set_ylim(1e5, 4e8)
-    if codetp not in ('ART', 'CHANGA', 'GEAR'):
-        ax.tick_params(labelleft=False)
-    if codetp in ('ART', 'GADGET3', 'GADGET4', 'GIZMO'):
-        title_color = 'blue'
-    else:
-        title_color = 'black'
-    if codetp in ('ART', 'RAMSES', 'GADGET3', 'GEAR'):
-        ax.set_title(label_list[j] + '*', fontsize=font_size, color=title_color)
-    elif codetp == 'CHANGA':
-        ax.set_title(r'$\text{%s}^{\dagger}$' % label_list[j], fontsize=font_size, color=title_color)
-    else:
-        ax.set_title(label_list[j], fontsize=font_size, color=title_color)
-
-# ====================================================================
-# RIGHT BLOCK (Code 2): decomposed radial mass distribution
-# ====================================================================
-font_size = 22
-leg_handles, leg_labels = [], []
-for j in range(len(codetp_list)):
-    codetp = codetp_list[j]
     idx_begin, idx_endinfall, idx_1stpass, idx_maxdist, idx_cls, \
     time_begin, time_endinfall, time_1stpass, time_maxdist, time_cls = load_timings(codetp, halotree_ver, merger_number)
     time_list = np.loadtxt('/work/hdd/bezm/gtg115x/Halo_Finding/%s/pfs_allsnaps_%s.txt' % (codetp, halotree_ver), dtype=str)[:, 2].astype(float)
-    if codetp == 'GEAR':
-        step = 3
-    elif codetp == 'CHANGA':
-        step = 2
-    else:
-        step = 1
-    #
-    ax = fig.add_subplot(gs_right[j // 3, j % 3])
     #
     time_eval = time_1stpass + 0.6
     if codetp == 'GEAR':
@@ -94,109 +92,129 @@ for j in range(len(codetp_list)):
     else:
         idx_eval = np.argmin(abs(time_eval - time_list/1e3)) - (np.argmin(abs(time_eval - time_list/1e3)) % step)
     #
+    dist_gal_begin, mass_gal_begin = np.load(
+        '/work/hdd/bezm/tnguyen2/AGORA/analysis/radial_mass_distribution_ProgBranch-%s_Idx_%s_%s_ver2013.npy' % (merger_number, idx_begin - step, codetp),
+        allow_pickle=True).tolist().values()
+    #
     ID_old, dist_old, mass_old, ID_infall, dist_infall, mass_infall, ID_pass, dist_pass, mass_pass, \
     ID_cls, dist_cls, mass_cls, ID_deposit, dist_deposit, mass_deposit, \
-    ID_gal, dist_gal, mass_gal = np.load('/work/hdd/bezm/tnguyen2/AGORA/analysis/radial_mass_distribution_decomposed_ProgBranch-%s_Idx_%s_%s_ver2013.npy' % (merger_number, idx_eval, codetp), allow_pickle=True).tolist().values()
-
-    hist_bin_log = np.linspace(0, 10, 100)
+    ID_gal, dist_gal, mass_gal = np.load(
+        '/work/hdd/bezm/tnguyen2/AGORA/analysis/radial_mass_distribution_decomposed_ProgBranch-%s_Idx_%s_%s_ver2013.npy' % (merger_number, idx_eval, codetp),
+        allow_pickle=True).tolist().values()
     #
-    infall_hist  = np.histogram(dist_infall,  weights=mass_infall,  bins=hist_bin_log)
-    pass_hist    = np.histogram(dist_pass,    weights=mass_pass,     bins=hist_bin_log)
-    cls_hist     = np.histogram(dist_cls,     weights=mass_cls,      bins=hist_bin_log)
-    deposit_hist = np.histogram(dist_deposit, weights=mass_deposit,  bins=hist_bin_log)
-    old_hist     = np.histogram(dist_old,     weights=mass_old,      bins=hist_bin_log)
-
-    ax.bar(hist_bin_log[:-1], old_hist[0], width=np.diff(hist_bin_log), color='black', align='edge', label='old + accretion')
-    ax.bar(hist_bin_log[:-1], deposit_hist[0], bottom=old_hist[0], width=np.diff(hist_bin_log), color='limegreen', align='edge', label='deposit')
-    ax.bar(hist_bin_log[:-1], infall_hist[0], bottom=old_hist[0] + deposit_hist[0], width=np.diff(hist_bin_log), color='royalblue', align='edge', label='infall')
-    ax.bar(hist_bin_log[:-1], pass_hist[0], bottom=old_hist[0] + deposit_hist[0] + infall_hist[0], width=np.diff(hist_bin_log), color='orange', align='edge', label='1st passage')
-    ax.bar(hist_bin_log[:-1], cls_hist[0], bottom=old_hist[0] + deposit_hist[0] + infall_hist[0] + pass_hist[0], width=np.diff(hist_bin_log), color='red', align='edge', label='coalescence')
-
-    # ----- inset percentage bars -----
-    left, bottom, width, height = [0.45, 0.85, 0.5, 0.1]
-    ax_cls = ax.inset_axes([left, bottom, width, height])
-    ax_cls.get_xaxis().set_visible(False)
-    ax_cls.get_yaxis().set_visible(False)
-    ax_cls.bar(hist_bin_log[:-1], cls_hist[0], width=np.diff(hist_bin_log), color='red', align='edge', label='cls + post-cls')
-    ax_cls.text(0.65, 0.6, s='%.0f%%' % ((mass_cls.sum()/mass_gal.sum())*100), transform=ax_cls.transAxes, fontsize=font_size - 8)
-
-    left, bottom, width, height = [0.45, 0.75, 0.5, 0.1]
-    ax_pass = ax.inset_axes([left, bottom, width, height])
-    ax_pass.get_xaxis().set_visible(False)
-    ax_pass.get_yaxis().set_visible(False)
-    ax_pass.bar(hist_bin_log[:-1], pass_hist[0], width=np.diff(hist_bin_log), color='orange', align='edge', label='first passage')
-    ax_pass.text(0.65, 0.6, s='%.0f%%' % ((mass_pass.sum()/mass_gal.sum())*100), transform=ax_pass.transAxes, fontsize=font_size - 8)
-
-    left, bottom, width, height = [0.45, 0.65, 0.5, 0.1]
-    ax_infall = ax.inset_axes([left, bottom, width, height])
-    ax_infall.get_xaxis().set_visible(False)
-    ax_infall.get_yaxis().set_visible(False)
-    ax_infall.bar(hist_bin_log[:-1], infall_hist[0], width=np.diff(hist_bin_log), color='royalblue', align='edge', label='infall')
-    if codetp == 'GIZMO':
-        ax_infall.text(0.65, 0.6, s='%.1f%%' % ((mass_infall.sum()/mass_gal.sum())*100), transform=ax_infall.transAxes, fontsize=font_size - 8)
-    else:
-        ax_infall.text(0.65, 0.6, s='%.0f%%' % ((mass_infall.sum()/mass_gal.sum())*100), transform=ax_infall.transAxes, fontsize=font_size - 8)
-
-    left, bottom, width, height = [0.45, 0.55, 0.5, 0.1]
-    ax_deposit = ax.inset_axes([left, bottom, width, height])
-    ax_deposit.get_xaxis().set_visible(False)
-    ax_deposit.get_yaxis().set_visible(False)
-    ax_deposit.bar(hist_bin_log[:-1], deposit_hist[0], width=np.diff(hist_bin_log), color='limegreen', align='edge', label='deposit')
-    ax_deposit.text(0.65, 0.6, s='%.0f%%' % ((mass_deposit.sum()/mass_gal.sum())*100), transform=ax_deposit.transAxes, fontsize=font_size - 8)
-
-    left, bottom, width, height = [0.45, 0.45, 0.5, 0.1]
-    ax_old = ax.inset_axes([left, bottom, width, height])
-    ax_old.get_yaxis().set_visible(False)
-    ax_old.bar(hist_bin_log[:-1], old_hist[0], width=np.diff(hist_bin_log), color='black', align='edge', label='old')
-    if codetp == 'GIZMO':
-        ax_old.text(0.65, 0.6, s='%.1f%%' % ((mass_old.sum()/mass_gal.sum())*100), transform=ax_old.transAxes, fontsize=font_size - 8)
-    else:
-        ax_old.text(0.65, 0.6, s='%.0f%%' % ((mass_old.sum()/mass_gal.sum())*100), transform=ax_old.transAxes, fontsize=font_size - 8)
-    ax_old.set_xticks(xticks, ['0', '', '', '', '', '10'])
-    ax_old.tick_params('x', labelsize=font_size - 8)
+    mass_total = mass_gal.sum()
     #
-    if j >= 6:
-        ax.set_xlabel('d (kpc)', fontsize=font_size)
-    if j == 0 or j == 3 or j == 6:
-        ax.set_ylabel(r'$M_{\bigstar} (M_\odot)$', fontsize=font_size)
-    ax.tick_params('both', labelsize=font_size)
-    ax.yaxis.get_offset_text().set_fontsize(font_size-2)
-    if j >= 6:
+    # (dist, mass, color, percent-of-total or None)
+    col_data = [
+        (dist_gal_begin, mass_gal_begin, 'black', None),
+        (dist_gal, mass_gal, 'black', None),
+        (dist_old, mass_old, component_colors['old'], mass_old.sum() / mass_total * 100),
+        (dist_infall, mass_infall, component_colors['infall'], mass_infall.sum() / mass_total * 100),
+        (dist_pass, mass_pass, component_colors['pass'], mass_pass.sum() / mass_total * 100),
+        (dist_cls, mass_cls, component_colors['cls'], mass_cls.sum() / mass_total * 100),
+        (dist_deposit, mass_deposit, component_colors['deposit'], mass_deposit.sum() / mass_total * 100),
+    ]
+    #
+    for j, (dist, mass, color, pct) in enumerate(col_data):
+        if j == 0:
+            ax = fig.add_subplot(gs_col0[i, 0])
+        elif j == 1:
+            ax = fig.add_subplot(gs_col1[i, 0])
+        else:
+            ax = fig.add_subplot(gs_rest2[i, j - 2])
+        axes_grid[i, j] = ax
+        if j == 1:
+            # "After merger" total, stacked from the five components (bottom to top,
+            # matching the component columns' color coding).
+            stack_order = ['old', 'deposit', 'infall', 'pass', 'cls']
+            stack_dist = {'old': dist_old, 'infall': dist_infall, 'pass': dist_pass,
+                          'cls': dist_cls, 'deposit': dist_deposit}
+            stack_mass = {'old': mass_old, 'infall': mass_infall, 'pass': mass_pass,
+                          'cls': mass_cls, 'deposit': mass_deposit}
+            ax.hist([stack_dist[c] for c in stack_order],
+                    weights=[stack_mass[c] for c in stack_order],
+                    bins=hist_bin_log, histtype='step', stacked=True, linewidth=1.5,
+                    color=[component_colors[c] for c in stack_order])
+        else:
+            ax.hist(dist, weights=mass, bins=hist_bin_log, histtype='step', color=color, linewidth=1.5)
+        #
+        if pct is not None:
+            if codetp == 'GIZMO' and j in (2, 3):  # old, infall columns get extra precision for GIZMO
+                pct_str = '%.1f%%' % pct
+            else:
+                pct_str = '%.0f%%' % pct
+            ax.text(0.95, 0.88, pct_str, transform=ax.transAxes, ha='right', va='top',
+                     fontsize=font_size - 3, color=color, weight="bold")
+        #
+        if j == 0:
+            ax.set_yscale('log')
+            ax.set_ylim(1e6, 6e8)
+        elif j == 1:
+            ax.set_yscale('log')
+            ax.set_ylim(1e6, 7e9)
+        # else: columns 2-6 (old, infall, pass, cls, deposit) use a linear
+        # y-scale with a matplotlib-determined range instead of a shared log one.
         ax.set_xticks(xticks)
-    else:
-        ax.set_xticks(xticks, ['', '', '', '', '', ''])
-    ax.set_yscale('log')
-    ax.set_ylim(1e6, 3.5e9)
-    if codetp not in ('ART', 'CHANGA', 'GEAR'):
-        ax.tick_params(labelleft=False)
+        if i == n_rows - 1:
+            ax.set_xlabel('d (kpc)', fontsize=font_size)
+            ax.tick_params('x', labelsize=font_size)
+        else:
+            ax.set_xticklabels([])
+        if j == 0 or j == 1:
+            ax.set_ylabel(r'$M_{\bigstar} (M_\odot)$', fontsize=font_size)
+        if j <= 1:
+            ax.tick_params('y', labelsize=font_size)
+            ax.yaxis.get_offset_text().set_fontsize(font_size - 4)
+        else:
+            ax.tick_params(labelleft=False)
+        #
+        if i == 0:
+            ax.set_title(col_titles[j], fontsize=font_size - 2)
+    #
+    # Code name in the top-right corner of the column-0 panel (color/asterisk/dagger
+    # encoding preserved from the original per-panel titles)
     if codetp in ('ART', 'GADGET3', 'GADGET4', 'GIZMO'):
         title_color = 'blue'
     else:
         title_color = 'black'
     if codetp in ('ART', 'RAMSES', 'GADGET3', 'GEAR'):
-        ax.set_title(label_list[j] + '*', fontsize=font_size, color=title_color)
+        row_text = label + '*'
     elif codetp == 'CHANGA':
-        ax.set_title(r'$\text{%s}^{\dagger}$' % label_list[j], fontsize=font_size, color=title_color)
+        row_text = r'$\text{%s}^{\dagger}$' % label
     else:
-        ax.set_title(label_list[j], fontsize=font_size, color=title_color)
+        row_text = label
+    axes_grid[i, 0].text(0.95, 0.93, row_text, transform=axes_grid[i, 0].transAxes,
+                          ha='right', va='top', fontsize=font_size, color=title_color)
     #
-    if j == len(codetp_list) - 1:
-        h1, l1 = ax_old.get_legend_handles_labels()
-        h2, l2 = ax_infall.get_legend_handles_labels()
-        h3, l3 = ax_pass.get_legend_handles_labels()
-        h4, l4 = ax_cls.get_legend_handles_labels()
-        h5, l5 = ax_deposit.get_legend_handles_labels()
-        leg_handles = h1 + h2 + h3 + h4 + h5
-        leg_labels  = l1 + l2 + l3 + l4 + l5
+    # Funnel connector between column 1 ("after merger" total) and column 2
+    # ("old + accretion"): two lines from the midpoint of column 1's right edge
+    # diverging out to column 2's top-left and bottom-left corners.
+    pos_col1 = axes_grid[i, 1].get_position()
+    pos_col2 = axes_grid[i, 2].get_position()
+    apex_x, apex_y = pos_col1.x1, (pos_col1.y0 + pos_col1.y1) / 2
+    for corner_y in (pos_col2.y0, pos_col2.y1):
+        fig.add_artist(Line2D([apex_x, pos_col2.x0], [apex_y, corner_y], transform=fig.transFigure,
+                               color='black', linewidth=1.0))
 
-# Legend centered under the RIGHT block (block spans x = 0.55-0.98, center ~0.765)
-fig.legend(leg_handles, leg_labels, loc='upper center',
-           bbox_to_anchor=(0.765, 0.07), ncol=5, fontsize=18)
+# Row-group labels ("Group 1/2/3") and separators, in the right margin freed up
+# by gs_rest2's right edge (0.963966) and the figure's right edge (~1.0).
+margin_x0 = 0.9660   # just right of the columns 2-6 block
+margin_x1 = 0.9950   # short of the figure edge
+label_x = (margin_x0 + margin_x1) / 2
 
-fig.text(0.265, 0.98, r'Before the merger ($t_\text{pre-infall}$)', ha='center', va='bottom', fontsize=24)
-fig.text(0.765, 0.98, r'After the merger ($t_\text{post/eq}$)', ha='center', va='bottom', fontsize=24)
+for start, end, group_label in row_groups:
+    y_top = axes_grid[start, 0].get_position().y1
+    y_bottom = axes_grid[end, 0].get_position().y0
+    fig.text(label_x, (y_top + y_bottom) / 2, group_label, rotation=-90,
+              ha='center', va='center', fontsize=font_size, weight='bold')
 
-fig.text(0.265, 0.015, '(a)', ha='center', va='bottom', fontsize=24)
-fig.text(0.765, 0.015, '(b)', ha='center', va='bottom', fontsize=24)
+# Separator between consecutive groups, at the midpoint of the gap between them
+for (_, prev_end, _), (next_start, _, _) in zip(row_groups[:-1], row_groups[1:]):
+    y_prev_bottom = axes_grid[prev_end, 0].get_position().y0
+    y_next_top = axes_grid[next_start, 0].get_position().y1
+    sep_y = (y_prev_bottom + y_next_top) / 2
+    fig.add_artist(Line2D([margin_x0, margin_x1], [sep_y, sep_y], transform=fig.transFigure,
+                           color='black', linewidth=1.0))
 
-plt.savefig('/work/hdd/bezm/tnguyen2/figures/AGORA/November2025/mass_radialdistribution_CombinedFirstMerger_ProgBranch-%s_ver2013_logscale_ver2.png' % merger_number, dpi=300, bbox_inches='tight')
+
+plt.savefig('/work/hdd/bezm/tnguyen2/figures/AGORA/November2025/mass_radialdistribution_CombinedFirstMerger_ProgBranch-%s_ver2013_logscale_ver3.png' % merger_number, dpi=300, bbox_inches='tight')
