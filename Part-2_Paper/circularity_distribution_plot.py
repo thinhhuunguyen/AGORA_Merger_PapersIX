@@ -11,34 +11,43 @@ from setup import load_halotree_and_pfs, load_timings, sec_branch_compute
 from setup import codetp_list, label_list, color_list
 
 # Create figure
-fig = plt.figure(figsize=(20, 10))
+fig = plt.figure(figsize=(20, 20))
 
-# Create a 10x2 GridSpec
+# Outer GridSpec: 1 top row (2 panels) + a bottom block (3 rows of 5 panels each)
 gs = GridSpec(
     nrows=2,
     ncols=10,
     figure=fig,
-    height_ratios=[1, 1],
-    hspace=0.33,
+    height_ratios=[1, 3],
+    hspace=0.16,
     wspace=0.5
 )
 
 # -------------------------
-# Left column (2 equal panels)
+# Top row (2 equal panels)
 # -------------------------
 ax_left_top = fig.add_subplot(gs[0, 0:5])
 ax_right_top = fig.add_subplot(gs[0, 5:10])
 
 # -------------------------
-# Right column (5 stacked panels)
-# Each spans 2 rows
+# Bottom block: 3 stacked rows of 5 panels each, tightly spaced
+# Row 1: ART-I, GADGET-3, GADGET-4, GIZMO
+# Row 2: ENZO, AREPO-T
+# Row 3: RAMSES, CHANGA, GEAR
 # -------------------------
-ax_bot = []
+gs_bot = gs[1, :].subgridspec(nrows=3, ncols=10, hspace=0.15, wspace=0.5)
+ax_bot_row1, ax_bot_row2, ax_bot_row3 = [], [], []
 for i in range(5):
-    ax = fig.add_subplot(gs[1, i*2:(i+1)*2])
-    ax_bot.append(ax)
+    ax_bot_row1.append(fig.add_subplot(gs_bot[0, i*2:(i+1)*2]))
+    ax_bot_row2.append(fig.add_subplot(gs_bot[1, i*2:(i+1)*2]))
+    ax_bot_row3.append(fig.add_subplot(gs_bot[2, i*2:(i+1)*2]))
 
-ax_bot0, ax_bot1, ax_bot2, ax_bot3, ax_bot4 = ax_bot[0], ax_bot[1], ax_bot[2], ax_bot[3], ax_bot[4]
+# Which of the 3 bottom rows each code's lines belong to
+code_row_map = {
+    'ART': ax_bot_row1, 'GADGET3': ax_bot_row1, 'GADGET4': ax_bot_row1, 'GIZMO': ax_bot_row1,
+    'ENZO': ax_bot_row2, 'AREPO': ax_bot_row2,
+    'RAMSES': ax_bot_row3, 'CHANGA': ax_bot_row3, 'GEAR': ax_bot_row3,
+}
 
 halotree_ver = 2013
 merger_number = '0'
@@ -49,6 +58,15 @@ epsilon_lim = 1.5
 xlim = (-epsilon_lim, epsilon_lim)
 ylim = (-0.02, 1.62)
 hist_bin_log = np.linspace(-epsilon_lim,epsilon_lim,100)
+
+# Row group labels, on the left-most panel of each of the 3 bottom rows
+for ax, group_label in zip([ax_bot_row1[0], ax_bot_row2[0], ax_bot_row3[0]], ['Group 1', 'Group 2', 'Group 3']):
+    ax.text(
+        0.08, 0.92, group_label,
+        transform=ax.transAxes, fontsize=font_size*0.8, fontweight='bold',
+        va='top', ha='left', zorder=20,
+        bbox=dict(facecolor='white', alpha=0.7, edgecolor='none', pad=2)
+    )
 
 
 for k in range(len(codetp_list)):
@@ -111,73 +129,43 @@ for k in range(len(codetp_list)):
     ax_right_top.set_ylim(ylim)
     ax_right_top.set_yticks([])
     #
-    # Old stars
-    kde = gaussian_kde(epsilon_old, weights=mass_old, bw_method='scott')
-    x = np.linspace(-epsilon_lim, epsilon_lim, 1000)
-    kde_values = kde(x)
-    ax_bot0.plot(x, kde_values, linewidth=2, label=label_list[k], color=color_list[k], zorder=10)
-    ax_bot0.set_xlabel(r'$\epsilon = J_{z}/J_\text{circ}(E)$', fontsize = font_size)
-    ax_bot0.set_ylabel(r'$F(\epsilon)$', fontsize = font_size)
-    ax_bot0.axvline(0, linestyle='--', color='k', zorder=1, alpha=0.3)
-    ax_bot0.axvline(1, linestyle='--', color='k', zorder=1, alpha=0.3)
-    ax_bot0.tick_params('both', labelsize = font_size)
-    ax_bot0.set_title('Old', fontsize = font_size)
-    ax_bot0.set_xlim(xlim)
-    ax_bot0.set_ylim(ylim)
-    #
-    # Infall stage stars
-    kde = gaussian_kde(epsilon_infall, weights=mass_infall, bw_method='scott')
-    x = np.linspace(-epsilon_lim, epsilon_lim, 1000)
-    kde_values = kde(x)
-    ax_bot1.plot(x, kde_values, linewidth=2, label=label_list[k], color=color_list[k], zorder=10)
-    ax_bot1.axvline(0, linestyle='--', color='k', zorder=1, alpha=0.3)
-    ax_bot1.axvline(1, linestyle='--', color='k', zorder=1, alpha=0.3)
-    ax_bot1.tick_params('both', labelsize = font_size)
-    ax_bot1.set_title('Infall', fontsize = font_size)
-    ax_bot1.set_xlim(xlim)
-    ax_bot1.set_ylim(ylim)
-    ax_bot1.set_yticklabels([])
-    #
-    # First-passage stars
-    kde = gaussian_kde(epsilon_pass, weights=mass_pass, bw_method='scott')
-    x = np.linspace(-epsilon_lim, epsilon_lim, 1000)
-    kde_values = kde(x)
-    ax_bot2.plot(x, kde_values, linewidth=2, label=label_list[k], color=color_list[k], zorder=10)
-    ax_bot2.axvline(0, linestyle='--', color='k', zorder=1, alpha=0.3)
-    ax_bot2.axvline(1, linestyle='--', color='k', zorder=1, alpha=0.3)
-    ax_bot2.tick_params('both', labelsize = font_size)
-    ax_bot2.set_title('First passage', fontsize = font_size)
-    ax_bot2.set_xlim(xlim)
-    ax_bot2.set_ylim(ylim)
-    ax_bot2.set_yticklabels([])
-    #
-    # Cls stars
-    kde = gaussian_kde(epsilon_cls, weights=mass_cls, bw_method='scott')
-    x = np.linspace(-epsilon_lim, epsilon_lim, 1000)
-    kde_values = kde(x)
-    ax_bot3.plot(x, kde_values, linewidth=2, label=label_list[k], color=color_list[k], zorder=10)
-    ax_bot3.axvline(0, linestyle='--', color='k', zorder=1, alpha=0.3)
-    ax_bot3.axvline(1, linestyle='--', color='k', zorder=1, alpha=0.3)
-    ax_bot3.tick_params('both', labelsize = font_size)
-    ax_bot3.set_title('Cls + Post-cls', fontsize = font_size)
-    ax_bot3.set_xlim(xlim)
-    ax_bot3.set_ylim(ylim)
-    ax_bot3.set_yticklabels([])
-    #
-    # Deposit stars
-    kde = gaussian_kde(epsilon_deposit, weights=mass_deposit, bw_method='scott')
-    x = np.linspace(-epsilon_lim, epsilon_lim, 1000)
-    kde_values = kde(x)
-    ax_bot4.plot(x, kde_values, linewidth=2, label=label_list[k], color=color_list[k], zorder=10)
-    ax_bot4.axvline(0, linestyle='--', color='k', zorder=1, alpha=0.3)
-    ax_bot4.axvline(1, linestyle='--', color='k', zorder=1, alpha=0.3)
-    ax_bot4.tick_params('both', labelsize = font_size)
-    ax_bot4.set_title('Deposit', fontsize = font_size)
-    ax_bot4.set_xlim(xlim)
-    ax_bot4.set_ylim(ylim)
-    ax_bot4.set_yticklabels([])
+    # Route this code's lines to its assigned bottom row
+    row_axes = code_row_map[codetp]
+    is_top_group = row_axes is ax_bot_row1
+    is_bottom_group = row_axes is ax_bot_row3
 
-    
+    categories = [
+        ('Old', epsilon_old, mass_old),
+        ('Infall', epsilon_infall, mass_infall),
+        ('First passage', epsilon_pass, mass_pass),
+        ('Cls + Post-cls', epsilon_cls, mass_cls),
+        ('Deposit', epsilon_deposit, mass_deposit),
+    ]
+
+    for i, (cat_title, eps_arr, mass_arr) in enumerate(categories):
+        ax = row_axes[i]
+        kde = gaussian_kde(eps_arr, weights=mass_arr, bw_method='scott')
+        x = np.linspace(-epsilon_lim, epsilon_lim, 1000)
+        kde_values = kde(x)
+        ax.plot(x, kde_values, linewidth=2, label=label_list[k], color=color_list[k], zorder=10)
+        ax.axvline(0, linestyle='--', color='k', zorder=1, alpha=0.3)
+        ax.axvline(1, linestyle='--', color='k', zorder=1, alpha=0.3)
+        ax.tick_params('both', labelsize = font_size)
+        ax.set_xlim(xlim)
+        ax.set_ylim(ylim)
+        if i == 0:
+            ax.set_ylabel(r'$F(\epsilon)$', fontsize = font_size)
+        else:
+            ax.set_yticklabels([])
+        if is_top_group:
+            ax.set_title(cat_title, fontsize = font_size)
+        if is_bottom_group:
+            if i == 0:
+                ax.set_xlabel(r'$\epsilon = J_{z}/J_\text{circ}(E)$', fontsize = font_size)
+        else:
+            ax.set_xticklabels([])
+
+
 handles, labels = ax_left_top.get_legend_handles_labels()
 
 leg = fig.legend(
@@ -187,12 +175,12 @@ leg = fig.legend(
     ncol=len(labels),          # one column per code
     fontsize=15,
     frameon=True,
-    bbox_to_anchor=(0.5, -0.018)
+    bbox_to_anchor=(0.5, 0.06)
 )
 
 for i in [0, 4, 5, 8]:
     leg.get_texts()[i].set_color("blue")
 
 # Make room for the legend
-fig.subplots_adjust(bottom=0.2)
-plt.savefig('/work/hdd/bezm/tnguyen2/figures/AGORA/November2025/circularity_distribution_ProgBranch-%s_ver2013_Abadi2003method_ver2.png' % merger_number, dpi=300, bbox_inches='tight')
+fig.subplots_adjust(bottom=0.127)
+plt.savefig('/work/hdd/bezm/tnguyen2/figures/AGORA/November2025/circularity_distribution_ProgBranch-%s_ver2013_Abadi2003method_ver3.png' % merger_number, dpi=300, bbox_inches='tight')
