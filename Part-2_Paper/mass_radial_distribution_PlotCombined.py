@@ -133,10 +133,10 @@ for i, codetp in enumerate(row_codetp_list):
                           'cls': mass_cls, 'deposit': mass_deposit}
             ax.hist([stack_dist[c] for c in stack_order],
                     weights=[stack_mass[c] for c in stack_order],
-                    bins=hist_bin_log, histtype='step', stacked=True, linewidth=1.5,
+                    bins=hist_bin_log, histtype='step', stacked=True, linewidth=3,
                     color=[component_colors[c] for c in stack_order])
         else:
-            ax.hist(dist, weights=mass, bins=hist_bin_log, histtype='step', color=color, linewidth=1.5)
+            ax.hist(dist, weights=mass, bins=hist_bin_log, histtype='step', color=color, linewidth=3)
         #
         if pct is not None:
             if codetp == 'GIZMO' and j in (2, 3):  # old, infall columns get extra precision for GIZMO
