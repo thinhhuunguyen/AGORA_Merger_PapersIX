@@ -92,11 +92,11 @@ for k in range(len(codetp_list)):
     x = np.linspace(-epsilon_lim, epsilon_lim, 1000)
     kde_values = kde(x)
     if codetp == 'ART' or codetp == 'RAMSES' or codetp == 'GADGET3' or codetp == 'GEAR':
-        ax_left_top.plot(x, kde_values, linewidth=2, label=label_list[k] + '*', color=color_list[k])
+        ax_left_top.plot(x, kde_values, linewidth=2.5, label=label_list[k] + '*', color=color_list[k])
     elif codetp == 'CHANGA':
-        ax_left_top.plot(x, kde_values, linewidth=2, label=r'$\text{%s}^{\dagger}$' % label_list[k], color=color_list[k])
+        ax_left_top.plot(x, kde_values, linewidth=2.5, label=r'$\text{%s}^{\dagger}$' % label_list[k], color=color_list[k])
     else:
-        ax_left_top.plot(x, kde_values, linewidth=2, label=label_list[k], color=color_list[k])
+        ax_left_top.plot(x, kde_values, linewidth=2.5, label=label_list[k], color=color_list[k])
     ax_left_top.set_xlabel(r'$\epsilon = J_{z}/J_\text{circ}(E)$', fontsize = font_size)
     ax_left_top.set_ylabel(r'$F(\epsilon)$', fontsize = font_size)
     ax_left_top.axvline(0, linestyle='--', color='k')
@@ -119,7 +119,7 @@ for k in range(len(codetp_list)):
     kde = gaussian_kde(epsilon_gal, weights=mass_gal, bw_method='scott')
     x = np.linspace(-epsilon_lim, epsilon_lim, 1000)
     kde_values = kde(x)
-    ax_right_top.plot(x, kde_values, linewidth=2, label=label_list[k], color=color_list[k], zorder=10)
+    ax_right_top.plot(x, kde_values, linewidth=2.5, label=label_list[k], color=color_list[k], zorder=10)
     ax_right_top.set_xlabel(r'$\epsilon = J_{z}/J_\text{circ}(E)$', fontsize = font_size)
     ax_right_top.axvline(0, linestyle='--', color='k', zorder=1, alpha=0.3)
     ax_right_top.axvline(1, linestyle='--', color='k', zorder=1, alpha=0.3)
@@ -147,7 +147,7 @@ for k in range(len(codetp_list)):
         kde = gaussian_kde(eps_arr, weights=mass_arr, bw_method='scott')
         x = np.linspace(-epsilon_lim, epsilon_lim, 1000)
         kde_values = kde(x)
-        ax.plot(x, kde_values, linewidth=2, label=label_list[k], color=color_list[k], zorder=10)
+        ax.plot(x, kde_values, linewidth=2.5, label=label_list[k], color=color_list[k], zorder=10)
         ax.axvline(0, linestyle='--', color='k', zorder=1, alpha=0.3)
         ax.axvline(1, linestyle='--', color='k', zorder=1, alpha=0.3)
         ax.tick_params('both', labelsize = font_size)
