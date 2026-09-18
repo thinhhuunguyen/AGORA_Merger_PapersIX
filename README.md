@@ -29,7 +29,8 @@ Links to papers:
 - [merger_timing_plot.py](Part-1_Paper/merger_timing_plot.py): Figure 3 (right subplot)
     - *Gas_Mass_Fraction_calc_ConvexHull_preInfall_PrimaryGalaxy.py*: Generate data to plot Figure 3 (right subplot)
     - *Gas_Mass_Fraction_calc_ConvexHull_preinfall_SecondaryGalaxy.py*: Generate data to plot Figure 3 (right subplot)
-- [All_Properties_vs_Time_Plot.py](Part-1_Paper/All_Properties_vs_Time_Plot.py): Figure 4
+- [All_Properties_vs_Time_Plot.py](Part-1_Paper/All_Properties_vs_Time_Plot.py): Figure 4:
+    - Data for this can be found in the code to make Figure 9, [preMerger_StellarMass_SFR_sSFR.py](Part-1_Paper/preMerger_StellarMass_SFR_sSFR.py)
 - [Gas_phase_plot_at_different_merger_stages.py](Part-1_Paper/Gas_phase_plot_at_different_merger_stages.py): Figure 5 + Figure 6 
 - [Trace_Gas_Particles_that_Turns_Into_Starburst_Stars_plotting-fromSecondaryHalo_CombinedAllCodes.py](Part-1_Paper/Trace_Gas_Particles_that_Turns_Into_Starburst_Stars_plotting-fromSecondaryHalo_CombinedAllCodes.py): Figure 7
     - *bound_gas_index_seccondary_galaxy_preinfall.py*: Generate data to plot Figure 7
