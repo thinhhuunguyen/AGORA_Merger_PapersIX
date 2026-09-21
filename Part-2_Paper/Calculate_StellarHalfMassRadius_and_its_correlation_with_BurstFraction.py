@@ -143,8 +143,8 @@ if os.path.exists('/work/hdd/bezm/tnguyen2/AGORA/analysis/HalfMassRadius_data_ve
         #Calculate half-mass radius at pre-infall and equivalent timesteps
         rhalf_preinfall, spos_preinfall, center_preinfall = compute_halfmass_radius(codetp, idx_begin - step, assignment, hullv, sec_branch_on=False)
         rhalf_eval, spos_eval, center_eval = compute_halfmass_radius(codetp, idx_eval, assignment, hullv, sec_branch_on=False)
-    output[codetp]['rhalf_preinfall'] = rhalf_preinfall
-    output[codetp]['rhalf_eval'] = rhalf_eval
+        output[codetp]['rhalf_preinfall'] = rhalf_preinfall
+        output[codetp]['rhalf_eval'] = rhalf_eval
     np.save('/work/hdd/bezm/tnguyen2/AGORA/analysis/HalfMassRadius_data_ver2013_ver2.npy', output)
 
 
