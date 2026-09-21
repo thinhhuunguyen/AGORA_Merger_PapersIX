@@ -31,7 +31,7 @@ def in_hull(p, hull):
     #
     return hull.find_simplex(p)>=0
 
-def compute_halfmass_radius(codetp, idx, sec_branch_on=False):
+def compute_halfmass_radius(codetp, idx, assignment, hullv, sec_branch_on=False):
     #Loading data
     if codetp == 'GEAR':
         step = 3
@@ -44,8 +44,6 @@ def compute_halfmass_radius(codetp, idx, sec_branch_on=False):
     prog_branch, sec_branch, sec_branch_2 = sec_branch_compute(codetp, merger_number)
     idx_begin, idx_endinfall, idx_1stpass, idx_maxdist, idx_cls, time_begin, time_endinfall, time_1stpass, time_maxdist, time_cls = load_timings(codetp, halotree_ver, merger_number)
     metadata_dir = '/work/hdd/bezm/tnguyen2/AGORA/%s/metadata/' % codetp
-    assignment = np.load('/work/hdd/bezm/gtg115x/Halo_Finding/%s/star_id_%s_final_firstmerger.npy' % (codetp, halotree_ver), allow_pickle=True).tolist()
-    hullv = np.load('/work/hdd/bezm/gtg115x/Halo_Finding/%s/hullv_%s_withPos_final.npy' % (codetp, halotree_ver), allow_pickle=True).tolist()
     #
     metadata = np.load(metadata_dir + 'star_metadata_allbox_%s.npy' % idx, allow_pickle=True).tolist()
     mass_all = metadata['mass']
@@ -130,8 +128,11 @@ def compute_halfmass_radius(codetp, idx, sec_branch_on=False):
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Calculate the Half-mass radius data %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if os.path.exists('/work/hdd/bezm/tnguyen2/AGORA/analysis/HalfMassRadius_data_ver2013_ver2.npy') == False:
+    output = {}
     for codetp in codetp_list:
         redshift_list, time_list, pfs, step = load_halotree_and_pfs(codetp, halotree_ver, rawtree_skip=True)
+        assignment = np.load('/work/hdd/bezm/gtg115x/Halo_Finding/%s/star_id_%s_final_firstmerger.npy' % (codetp, halotree_ver), allow_pickle=True).tolist()
+        hullv = np.load('/work/hdd/bezm/gtg115x/Halo_Finding/%s/hullv_%s_withPos_final.npy' % (codetp, halotree_ver), allow_pickle=True).tolist()
         idx_begin, idx_endinfall, idx_1stpass, idx_maxdist, idx_cls, time_begin, time_endinfall, time_1stpass, time_maxdist, time_cls = load_timings(codetp, halotree_ver, merger_number)
         time_eval = time_1stpass + 0.6
         if codetp == 'GEAR':
@@ -139,9 +140,8 @@ if os.path.exists('/work/hdd/bezm/tnguyen2/AGORA/analysis/HalfMassRadius_data_ve
         else:
             idx_eval = np.argmin(abs(time_eval - time_list/1e3)) - (np.argmin(abs(time_eval - time_list/1e3)) % step)
         #Calculate half-mass radius at pre-infall and equivalent timesteps
-        rhalf_preinfall, spos_preinfall, center_preinfall = compute_halfmass_radius(codetp, idx_begin - step, sec_branch_on=False)
-        rhalf_eval, spos_eval, center_eval = compute_halfmass_radius(codetp, idx_eval, sec_branch_on=False)
-    output = {}
+        rhalf_preinfall, spos_preinfall, center_preinfall = compute_halfmass_radius(codetp, idx_begin - step, assignment, hullv, sec_branch_on=False)
+        rhalf_eval, spos_eval, center_eval = compute_halfmass_radius(codetp, idx_eval, assignment, hullv, sec_branch_on=False)
     output[codetp] = {}
     output[codetp]['rhalf_preinfall'] = rhalf_preinfall
     output[codetp]['rhalf_eval'] = rhalf_eval
