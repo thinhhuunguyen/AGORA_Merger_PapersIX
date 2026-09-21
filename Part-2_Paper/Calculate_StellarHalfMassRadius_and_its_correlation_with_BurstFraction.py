@@ -130,6 +130,7 @@ def compute_halfmass_radius(codetp, idx, assignment, hullv, sec_branch_on=False)
 if os.path.exists('/work/hdd/bezm/tnguyen2/AGORA/analysis/HalfMassRadius_data_ver2013_ver2.npy') == False:
     output = {}
     for codetp in codetp_list:
+        output[codetp] = {}
         redshift_list, time_list, pfs, step = load_halotree_and_pfs(codetp, halotree_ver, rawtree_skip=True)
         assignment = np.load('/work/hdd/bezm/gtg115x/Halo_Finding/%s/star_id_%s_final_firstmerger.npy' % (codetp, halotree_ver), allow_pickle=True).tolist()
         hullv = np.load('/work/hdd/bezm/gtg115x/Halo_Finding/%s/hullv_%s_withPos_final.npy' % (codetp, halotree_ver), allow_pickle=True).tolist()
@@ -142,7 +143,6 @@ if os.path.exists('/work/hdd/bezm/tnguyen2/AGORA/analysis/HalfMassRadius_data_ve
         #Calculate half-mass radius at pre-infall and equivalent timesteps
         rhalf_preinfall, spos_preinfall, center_preinfall = compute_halfmass_radius(codetp, idx_begin - step, assignment, hullv, sec_branch_on=False)
         rhalf_eval, spos_eval, center_eval = compute_halfmass_radius(codetp, idx_eval, assignment, hullv, sec_branch_on=False)
-    output[codetp] = {}
     output[codetp]['rhalf_preinfall'] = rhalf_preinfall
     output[codetp]['rhalf_eval'] = rhalf_eval
     np.save('/work/hdd/bezm/tnguyen2/AGORA/analysis/HalfMassRadius_data_ver2013_ver2.npy', output)
